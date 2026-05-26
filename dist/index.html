@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
+    <meta name="screen-orientation" content="landscape">
+    <title>Spaceforce Squadron</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/assets/manifest-NGQaIifi.json">
+    <meta name="theme-color" content="#06f9f9">
+    <link rel="apple-touch-icon" href="app_icon.png">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#06f9f9",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2323",
+                        "surface-dark": "#162e2e",
+                    },
+                    fontFamily: {
+                        "display": ["Orbitron", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+
+    <!-- removed: large inline <style> block - moved to src/styles.css -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://esm.sh/three@0.160.0",
+                "three/addons/": "https://esm.sh/three@0.160.0/examples/jsm/",
+                "nipplejs": "https://esm.sh/nipplejs@0.10.1"
+            }
+        }
+    </script>
+  <script type="module" crossorigin src="/assets/index-KErIg9Mt.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DavgxH1E.css">
+</head>
+<body>
+    <div id="loading-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#000; background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/1.jpg'); background-size: cover; background-position: center; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#0ff; font-family:'Orbitron', sans-serif;">
+        <h1 style="margin-bottom:20px; text-shadow: 0 0 20px #0ff;">INITIALIZING SYSTEM...</h1>
+        <div id="loading-status" style="font-size:12px; color:#555;">Loading Modules</div>
+        <div id="error-log" style="color:#f00; font-family:monospace; margin-top:20px; white-space:pre-wrap; text-align:left; max-width:80%; display:none;"></div>
+    </div>
+
+    <script>
+        window.onerror = function(msg, url, line, col, error) {
+            const errorDiv = document.getElementById('error-log');
+            if (errorDiv) {
+                errorDiv.style.display = 'block';
+                errorDiv.innerText += `\n[ERROR] ${msg}\n${url}:${line}:${col}\n`;
+            }
+            document.getElementById('loading-status').innerText = 'SYSTEM FAILURE';
+            document.getElementById('loading-status').style.color = '#f00';
+            return false;
+        };
+        window.addEventListener('unhandledrejection', function(event) {
+            const errorDiv = document.getElementById('error-log');
+            if (errorDiv) {
+                errorDiv.style.display = 'block';
+                errorDiv.innerText += `\n[PROMISE] ${event.reason}`;
+            }
+        });
+    </script>
+
+    <div id="canvas-container"></div>
+    
+    <!-- Orientation Lock Overlay -->
+    <div id="orientation-lock">
+        <div class="rotate-icon">
+            <span class="material-symbols-outlined" style="font-size: 64px;">screen_rotation</span>
+        </div>
+        <h2>LANDSCAPE REQUIRED</h2>
+        <p>Rotate Device to Engage Systems</p>
+    </div>
+
+    <!-- UI Layer - Templates loaded dynamically via ui.js -->
+    <div id="ui-layer"></div>
+
+    <!-- Gameplay Feedback Overlays -->
+    <div id="damage-flash"></div>
+
+    <!-- CRT & Scanline Simulation Overlays -->
+    <div class="crt-static-overlay"></div>
+    <div class="scanline-moving"></div>
+
+    <!-- Joystick Zones -->
+    <div id="joystick-zone-left"></div>
+    <div id="joystick-zone-right"></div>
+
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="/assets/particle-BpDVp2-E.png" type="image/png">
+    <link rel="preload" as="image" href="/eng_warp_drive.png" type="image/png">
+    
+    <script>
+        /**
+         * Attempt to force landscape orientation using the Screen Orientation API.
+         * This is triggered on the first user interaction as browsers require a gesture.
+         */
+        function lockOrientation() {
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(err => {
+                    console.info("Orientation lock requested. Note: Some browsers require Fullscreen mode for this API.");
+                });
+            }
+            // Optional: Requesting fullscreen often helps the browser commit to the orientation lock
+            // but we'll leave it as a soft request via the orientation lock itself for now.
+        }
+
+        window.addEventListener('click', lockOrientation, { once: true });
+        window.addEventListener('touchstart', lockOrientation, { once: true });
+    </script>
+</body>
+</html>

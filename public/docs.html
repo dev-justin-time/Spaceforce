@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Spaceforce Squadron – Technical Docs</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#06f9f9",
+            background: "#020617",
+            surface: "#020617",
+          },
+          fontFamily: {
+            display: ["Space Grotesk", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      min-height: 100vh;
+    }
+    .code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body class="bg-background text-slate-100 font-display">
+  <div class="relative min-h-screen">
+    <div
+      class="pointer-events-none fixed inset-0 opacity-40"
+      style="background-image:
+        radial-gradient(circle at top, rgba(6,249,249,0.15) 0, transparent 55%),
+        radial-gradient(circle at bottom, rgba(15,23,42,1) 0, #020617 55%);">
+    </div>
+
+    <main class="relative z-10 mx-auto max-w-5xl px-4 py-10 space-y-10">
+      <!-- Header -->
+      <header class="flex items-center justify-between gap-4 border-b border-primary/30 pb-6">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-bold tracking-[0.25em] uppercase text-primary">
+            Spaceforce Squadron
+          </h1>
+          <p class="mt-2 text-sm text-slate-300 tracking-wide">
+            Internal technical documentation – v101 <span class="text-primary/80">JUSTIN_TIME</span>
+          </p>
+        </div>
+        <a
+          href="./index.html"
+          class="inline-flex items-center gap-2 rounded-lg border border-primary/40 bg-black/40 px-3 py-2 text-xs font-semibold tracking-[0.15em] uppercase text-primary hover:bg-primary/10"
+        >
+          ⬅ Back to Game
+        </a>
+      </header>
+
+      <!-- Architecture Overview -->
+      <section class="space-y-4">
+        <h2 class="text-xl font-bold tracking-[0.2em] uppercase text-primary">1. System Architecture</h2>
+        <div class="rounded-lg border border-primary/30 bg-black/40 p-4 text-xs leading-relaxed text-slate-200">
+          <p>Spaceforce Squadron is built on a modular <span class="text-primary font-bold">Component-Based Simulation Engine</span> utilizing Three.js for high-fidelity 3D rendering and WebsimSocket for real-time synchronization. The architecture prioritizes data persistence and cross-platform performance.</p>
+          <div class="mt-4 grid gap-4 md:grid-cols-3">
+            <div>
+                <h4 class="text-primary/80 font-bold mb-1 uppercase">State Layer</h4>
+                <p class="text-slate-400">Redux-style central store (src/store.js) managing score, health, and player loadout state. Unidirectional data flow ensures predictable UI updates.</p>
+            </div>
+            <div>
+                <h4 class="text-primary/80 font-bold mb-1 uppercase">Persistence Layer</h4>
+                <p class="text-slate-400">Database API (src/database.js) mapping local session events to encrypted Websim collections for cross-session inventory and reputation storage.</p>
+            </div>
+            <div>
+                <h4 class="text-primary/80 font-bold mb-1 uppercase">Simulation Layer</h4>
+                <p class="text-slate-400">The Game loop (src/game.js) synchronizes the World, EntityManager, and Input systems at a consistent 60fps target.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Networking Protocols -->
+      <section class="space-y-4">
+        <h2 class="text-xl font-bold tracking-[0.2em] uppercase text-primary">2. Networking & Multiplayer</h2>
+        <div class="rounded-lg border border-primary/30 bg-black/40 p-4 text-xs leading-relaxed text-slate-200">
+          <p>The neural-link protocol utilizes a low-latency presence broadcasting system. To optimize bandwidth, only critical positional vectors and status flags are transmitted via the sub-space channel.</p>
+          <ul class="list-disc pl-5 mt-2 space-y-1 text-slate-300">
+            <li><span class="text-primary">Sector Separation:</span> Pilots are filtered by <span class="code">levelId</span> presence keys to prevent cross-sector interference.</li>
+            <li><span class="text-primary">Collision Reconciliation:</span> Client-side authoritative logic for local hits, with server-side event logging for "Uni" credit validation.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Gameplay Systems -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold tracking-[0.2em] uppercase text-primary">3. Gameplay Systems</h2>
+
+        <div class="grid gap-4 md:grid-cols-2 text-xs text-slate-200">
+          <div class="rounded-lg border border-primary/30 bg-black/40 p-3">
+            <h3 class="mb-1 text-[0.8rem] font-semibold uppercase tracking-widest text-primary/80">World &amp; Levels (<span class="code">src/world.js</span>, <span class="code">src/data/levels.js</span>)</h3>
+            <ul class="list-disc pl-4 space-y-1">
+              <li><span class="code">World.loadLevel(id)</span> clears scene, sets atmosphere (lighting, fog, background) and terrain material.</li>
+              <li>Pano backgrounds 1–8 are selected randomly per load via <span class="code">setupAtmosphere()</span>.</li>
+              <li><span class="code">update(dt, score)</span> scrolls chunks, introduces lateral “curve” at high score, and animates background overlays.</li>
+              <li><span class="code">levels.js</span> defines sector, thresholds, difficulty, rewards and mode flags (PvP/PvAI).</li>
+            </ul>
+          </div>
+          <div class="rounded-lg border border-primary/30 bg-black/40 p-3">
+            <h3 class="mb-1 text-[0.8rem] font-semibold uppercase tracking-widest text-primary/80">Player &amp; Loadouts (<span class="code">src/player.js</span>)</h3>
+            <ul class="list-disc pl-4 space-y-1">
+              <li>Uses shared <span class="code">s.gltf</span> ship model when available; falls back to procedural ship meshes by hull type.</li>
+              <li><span class="code">applyLoadout(inventory)</span> parses item <span class="code">effect</span> strings and ship hulls to compute multipliers.</li>
+              <li>Weapon states:
+                <span class="code">weaponLevel</span> (spread), <span class="code">enableRapidFire()</span>, primary/secondary cooldowns.
+              </li>
+              <li><span class="code">update(dt,input)</span> handles bounds, tilt/bank, and returns a firing state for the entity system.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2 text-xs text-slate-200">
+          <div class="rounded-lg border border-primary/30 bg-black/40 p-3">
+            <h3 class="mb-1 text-[0.8rem] font-semibold uppercase tracking-widest text-primary/80">Entities &amp; Collisions</h3>
+            <ul class="list-disc pl-4 space-y-1">
+              <li><span class="code">EntityManager</span> spawns:
+                bullets, missiles, coins (1/5/10/50 UNI tiers), powerups, asteroids, alien ships.
+              </li>
+              <li>Enemy patterns are centralized in <span class="code">EnemyFactory</span>, e.g. <span class="code">spawnGrey</span>, <span class="code">spawnDogfighter</span>, <span class="code">spawnPredator</span>.</li>
+              <li><span class="code">CollisionSystem.checkCollisions()</span> handles:
+                coin pickup, powerup pickup, bullets vs enemies, player vs enemies, player vs enemy bullets.
+              </li>
+              <li>Damage/score callbacks are passed from <span class="code">Game</span> so collisions remain stateless.</li>
+            </ul>
+          </div>
+          <div class="rounded-lg border border-primary/30 bg-black/40 p-3">
+            <h3 class="mb-1 text-[0.8rem] font-semibold uppercase tracking-widest text-primary/80">Spawn Logic (<span class="code">Game.animate()</span>)</h3>
+            <ul class="list-disc pl-4 space-y-1">
+              <li>Per‑frame: get <span class="code">dt</span>, update world, timers, entities, then camera, then render.</li>
+              <li>Enemy spawn behavior branches:
+                <ul class="list-disc pl-4 mt-1">
+                  <li>Dogfight levels (90–94) – dogfighters only, tuned counts/intervals.</li>
+                  <li>PvP arena (92) – AI dogfighters only when no human peers.</li>
+                  <li>Standard levels – mix of asteroids, fighter squads, “Greys”, plus level‑specific alien types.</li>
+                </ul>
+              </li>
+              <li>Powerups and coins spawn on independent timers with random placement.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Controls & Input -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold tracking-[0.2em] uppercase text-primary">4. Controls &amp; Input</h2>
+        <div class="rounded-lg border border-primary/30 bg-black/40 p-4 text-xs text-slate-200 space-y-2">
+          <p>
+            All input is centralized in <span class="code">src/input.js</span>, which merges keyboard, mouse, gyro, and touch joysticks into a single
+            <span class="code">{ move, shoot, shootSecondary, autoShoot }</span> struct consumed by <span class="code">Player.update()</span>.
+          </p>
+          <ul class="list-disc pl-4 space-y-1">
+            <li>Desktop:
+              <span class="code">WASD/Arrows</span> for movement,
+              <span class="code">Space / Mouse Left</span> for primary,
+              <span class="code">Mouse Right</span> for secondary when <span class="code">mouseControls</span> is enabled.
+            </li>
+            <li>Mouse aim:
+              world‑space P‑controller that drives <span class="code">move</span> towards cursor within player bounds.</li>
+            <li>Mobile:
+              nipple.js static sticks on left/right zones when <span class="code">touchControls</span> is on.</li>
+            <li>Gyro:
+              optional tilt control with permission gating; blends with other inputs based on store flags.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- UI & Screens -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold tracking-[0.2em] uppercase text-primary">5. UI &amp; Screens</h2>
+        <div class="grid gap-4 md:grid-cols-2 text-xs text-slate-200">
+          <div class="rounded-lg border border-primary/30 bg-black/40 p-3">
+            <h3 class="mb-1 text-[0.8rem] font-semibold uppercase tracking-widest text-primary/80">Template Files (<span class="code">src/ui/</span>)</h3>
+            <ul class="list-disc pl-4 space-y-1">
+              <li><span class="code">hangar.html</span> – mode/sector selection, mission list, header icons.</li>
+              <li><span class="code">game-hud.html</span> – in‑flight HUD, score, shields, camera &amp; settings.</li>
+              <li><span class="code">game-over.html</span> – post‑mission stats, credits earned, restart to hangar.</li>
+              <li><span class="code">market.html</span> – SpaceForce systems depot &amp; player inventory sell UI.</li>
+              <li><span class="code">leaderboard.html</span>, <span class="code">profile.html</span>, <span class="code">codex.html</span>, <span class="code">settings.html</span> – meta screens.</li>
+            </ul>
+          </div>
+          <div class="rounded-lg border border-primary/30 bg-black/40 p-3">
+            <h3 class="mb-1 text-[0.8rem] font-semibold uppercase tracking-widest text-primary/80">UI Manager (<span class="code">src/ui.js</span>)</h3>
+            <ul class="list-disc pl-4 space-y-1">
+              <li><span class="code">loadTemplates()</span> injects all UI partials into <span class="code">#ui-layer</span> from <span class="code">src/ui/*.html</span>.</li>
+              <li>Wires hangar buttons, codex tabs, modals, settings toggles, chat focus, and joystick visibility.</li>
+              <li>Subscribes to store updates to render score, health, loadout, and game over overlay.</li>
+              <li>Loads pilot avatar and stats from Websim user API + database.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Networking & Multiplayer -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold tracking-[0.2em] uppercase text-primary">6. Networking &amp; Multiplayer</h2>
+        <div class="grid gap-4 md:grid-cols-2 text-xs text-slate-200">
+          <div class="rounded-lg border border-primary/30 bg-black/40 p-3">
+            <h3 class="mb-1 text-[0.8rem] font-semibold uppercase tracking-widest text-primary/80">Presence &amp; Remote Ships</h3>
+            <ul class="list-disc pl-4 space-y-1">
+              <li><span class="code">MultiplayerManager</span> wraps a <span class="code">WebsimSocket</span> room.</li>
+              <li><span class="code">updatePlayerPresence()</span> broadcasts <span class="code">x</span>, <span class="code">y</span>, <span class="code">status</span>, <span class="code">alive</span>.</li>
+              <li><span class="code">syncRemotePilots()</span> mirrors other clients as simple ship meshes inside the main scene.</li>
+              <li><span class="code">inflictDamage()</span> sends presence update requests to apply PvP damage.</li>
+            </ul>
+          </div>
+          <div class="rounded-lg border border-primary/30 bg-black/40 p-3">
+            <h3 class="mb-1 text-[0.8rem] font-semibold uppercase tracking-widest text-primary/80">Chat &amp; AI Helper</h3>
+            <ul class="list-disc pl-4 space-y-1">
+              <li>Chat messages are stored in <span class="code">chat</span> collection; <span class="code">MultiplayerManager</span> keeps last 50.</li>
+              <li><span class="code">/ai</span> or <span class="code">@helper</span> triggers a Websim LLM completion with recent chat as context.</li>
+              <li>AI responses are posted back into chat as system messages prefixed with <span class="code">[AI]</span>.</li>
+              <li>Scores are broadcast via <span class="code">scores</span> collection and rendered in both minimal HUD leaderboard and full modal.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Economy & Market -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold tracking-[0.2em] uppercase text-primary">7. Economy, Market &amp; Codex</h2>
+        <div class="grid gap-4 md:grid-cols-2 text-xs text-slate-200">
+          <div class="rounded-lg border border-primary/30 bg-black/40 p-3">
+            <h3 class="mb-1 text-[0.8rem] font-semibold uppercase tracking-widest text-primary/80">Economy</h3>
+            <ul class="list-disc pl-4 space-y-1">
+              <li>Uni credits are stored per account and synced into the client store via <span class="code">HangarManager.loadUserData()</span>.</li>
+              <li><span class="code">db.addTransaction()</span> updates account balance and logs a transaction record.</li>
+              <li>Coins in‑game directly call <span class="code">ADD_CREDITS</span> and persist via <span class="code">loot</span> transactions.</li>
+              <li><span class="code">AccountantAgent</span> uses Websim LLM to generate a short “Ledger” report for the hangar footer.</li>
+            </ul>
+          </div>
+          <div class="rounded-lg border border-primary/30 bg-black/40 p-3">
+            <h3 class="mb-1 text-[0.8rem] font-semibold uppercase tracking-widest text-primary/80">Market &amp; Codex</h3>
+            <ul class="list-disc pl-4 space-y-1">
+              <li><span class="code">MarketManager</span> renders flip‑cards with art, classification, specs, and purchase flow.</li>
+              <li><span class="code">db.seedMarket()</span> populates listings from <span class="code">militarySystems</span> with dynamic pricing (TOP SECRET / Ancient Tech high cost).</li>
+              <li>Codex UI shows the same lore items as static flip‑cards organized into Ranks, Systems, Factions, Xenology tabs.</li>
+              <li>Inventory can be re‑listed into the market with custom price; purchased systems are added back into inventory.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Brightness & Visual Tuning -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold tracking-[0.2em] uppercase text-primary">8. Visual Tuning &amp; Brightness</h2>
+        <div class="rounded-lg border border-primary/30 bg-black/40 p-4 text-xs text-slate-200 space-y-2">
+          <p>
+            Brightness is primarily controlled via <span class="code">RendererManager</span> and level lighting.
+          </p>
+          <ul class="list-disc pl-4 space-y-1">
+            <li><span class="code">renderer.toneMappingExposure = 0.7</span> reduces global intensity vs default.</li>
+            <li><span class="code">UnrealBloomPass</span> uses <span class="code">threshold=0.35</span>, <span class="code">strength=0.7</span>, <span class="code">radius=0.45</span> to avoid blown‑out highlights.</li>
+            <li>Per‑level lighting in <span class="code">World.setupLighting()</span> can be adjusted for specific scenes that are “too bright”.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Extension Notes -->
+      <section class="space-y-3 mb-8">
+        <h2 class="text-xl font-bold tracking-[0.2em] uppercase text-primary">9. Extension Notes</h2>
+        <div class="rounded-lg border border-primary/30 bg-black/40 p-4 text-xs text-slate-200 space-y-1">
+          <ul class="list-disc pl-4 space-y-1">
+            <li>Add new levels by extending <span class="code">levels.js</span> and handling lighting/environment in <span class="code">World</span>.</li>
+            <li>New enemies should be implemented in <span class="code">EnemyFactory</span> and wired into spawn logic in <span class="code">Game.animate()</span>.</li>
+            <li>New items go into <span class="code">src/data/items.js</span>; pricing behavior is derived in <span class="code">db.seedMarket()</span> and bonuses parsed in <span class="code">Player.applyLoadout()</span>.</li>
+            <li>To tweak controls defaults, adjust the auto‑enable logic in <span class="code">UIManager.init()</span> and <span class="code">InputManager</span>.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

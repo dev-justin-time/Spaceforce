@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spaceforce Squadron - Game Over</title>
+<!-- Google Fonts: Space Grotesk & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#06f9f9",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2323",
+                        "alert-red": "#ef4444",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem", 
+                        "lg": "0.25rem", 
+                        "xl": "0.5rem", 
+                        "full": "0.75rem"
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #06f9f910 1px, transparent 1px), linear-gradient(to bottom, #06f9f910 1px, transparent 1px)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar to match theme */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f2323; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2f6a6a; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06f9f9; 
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white overflow-hidden h-screen w-full flex items-center justify-center">
+<!-- Main Game Over Interface Container -->
+<!-- Adapted for landscape mobile (horizontal play) -->
+<div class="relative flex w-full h-full max-w-[900px] max-h-[500px] shadow-2xl overflow-hidden bg-[#0f2323] border-y-4 border-primary/20 md:border-4 md:rounded-lg">
+<!-- Background Grid Overlay -->
+<div class="absolute inset-0 pointer-events-none bg-grid-pattern bg-[size:24px_24px] opacity-20 z-0"></div>
+<!-- CRT Scanline Effect (Simulated with Gradient) -->
+<div class="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-[1] bg-[length:100%_4px,6px_100%]"></div>
+<!-- Content Layout: Split Left (Status) and Right (Data/Action) -->
+<div class="relative z-10 flex w-full flex-col md:flex-row">
+<!-- LEFT PANEL: Visuals & Status -->
+<div class="flex flex-col w-full md:w-5/12 p-5 border-b md:border-b-0 md:border-r border-primary/20 bg-[#0f2323]/90 backdrop-blur-sm">
+<!-- System Failure Alert -->
+<div class="mb-4 border-l-4 border-alert-red pl-3 py-1 bg-gradient-to-r from-alert-red/10 to-transparent">
+<div class="flex items-center gap-2 text-alert-red mb-1">
+<span class="material-symbols-outlined text-lg animate-pulse">warning</span>
+<p class="text-xs font-bold tracking-[0.2em] uppercase">Critical Error</p>
+</div>
+<h1 class="text-white text-3xl font-bold leading-none tracking-tight">SYSTEM<br/>FAILURE</h1>
+</div>
+<!-- Ship Visualization (Wireframe) -->
+<div class="flex-1 relative w-full bg-[#081515] border border-primary/30 rounded overflow-hidden group mb-4">
+<!-- Tech overlay marks -->
+<div class="absolute top-2 left-2 w-2 h-2 border-l border-t border-primary"></div>
+<div class="absolute top-2 right-2 w-2 h-2 border-r border-t border-primary"></div>
+<div class="absolute bottom-2 left-2 w-2 h-2 border-l border-b border-primary"></div>
+<div class="absolute bottom-2 right-2 w-2 h-2 border-r border-b border-primary"></div>
+<!-- Image -->
+<div class="w-full h-full bg-center bg-no-repeat bg-contain opacity-80" data-alt="Wireframe diagram of a futuristic damaged spacecraft in cyan monochrome" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC3Y1AyVv_ihEie-lDisQRE8u10fleRp_zfa53LQ2fLj2_7Lfq_7RnWBzZwIDJu1EBOHR3VbMGEEnC_I3aIve46ryPOxv4Sqz4qE-L0LChoBVhMRJAA9PGe4MuH2OzOOtP3pWynYc4Thle4PJXp64Aw302d0Buz_bbtp7SbrCP16VINCzkl3UiLkjf5yJktztftEaszs-eUqX_iqYKxudBtjKk4V-qtkeAouZUSTOH6P3sIvmFA9jQx2qQko3hVfGtDKXwt3O5NN6FG"); filter: grayscale(100%) sepia(100%) hue-rotate(130deg) saturate(300%) contrast(1.2);'>
+</div>
+<!-- Status Overlay -->
+<div class="absolute bottom-3 left-0 w-full flex justify-center">
+<span class="px-2 py-0.5 bg-alert-red/20 border border-alert-red text-alert-red text-[10px] font-mono tracking-widest uppercase rounded">Hull Critical</span>
+</div>
+</div>
+<!-- Pilot Profile (Compact) -->
+<div class="flex items-center gap-3 bg-primary/5 p-2 rounded border border-primary/10">
+<div class="h-10 w-10 rounded bg-center bg-cover border border-primary/30" data-alt="Profile picture of the pilot wearing a flight suit" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChI_5snQsP8TyhVY0u7PGiPnF5A_e2CdXIvhRBvmnkplWLCwmASpevTMk6fVVImCmI1zl-rjaWaa16Uhwt5kjlpfy6zP4tGW8lR80xzWx5mdfdgnMBjqCCxaG5fuoINoqwlA8m87Bzz-qoi7kDJ2CqPu00y7nx3eStIJO5YxZop2Gs-x3UNFXjMhhLdY_pYExi1v9XligA9NacYNNnzesn_aF5lJsD6IHE3OW1yaN2tRNLJfVhOKaCF1vaOwY6rc6V0JLcSV1xfNAB");'></div>
+<div class="flex flex-col">
+<p class="text-primary/60 text-[10px] font-bold tracking-widest uppercase leading-tight">Squadron Leader</p>
+<p class="text-white text-lg font-bold leading-none tracking-wide">VIBER</p>
+</div>
+</div>
+</div>
+<!-- RIGHT PANEL: Stats & Action -->
+<div class="flex flex-col w-full md:w-7/12 p-5 bg-[#0f2323]/80">
+<!-- Primary Stats (Score & Credits) -->
+<div class="flex gap-3 mb-5">
+<!-- Mission Score -->
+<div class="flex-1 relative overflow-hidden bg-[#152e2e] border border-primary/50 rounded p-3 flex flex-col justify-center shadow-[0_0_15px_-5px_#06f9f9]">
+<div class="absolute top-0 right-0 p-1 opacity-20">
+<span class="material-symbols-outlined text-4xl">military_tech</span>
+</div>
+<p class="text-primary text-xs font-medium tracking-wider mb-1">MISSION SCORE</p>
+<p class="text-white text-3xl font-bold leading-none tracking-tighter">124,590</p>
+</div>
+<!-- Credits -->
+<div class="flex-1 relative bg-[#152e2e] border border-primary/20 rounded p-3 flex flex-col justify-center">
+<div class="absolute top-0 right-0 p-1 opacity-20">
+<span class="material-symbols-outlined text-4xl">savings</span>
+</div>
+<p class="text-[#8ecccc] text-xs font-medium tracking-wider mb-1">CREDITS SECURED</p>
+<p class="text-primary text-2xl font-bold leading-none tracking-tighter">+1,200</p>
+</div>
+</div>
+<!-- Secondary Stats (List) -->
+<div class="flex-1 mb-4">
+<div class="flex items-center gap-2 mb-3 border-b border-white/10 pb-1">
+<span class="material-symbols-outlined text-sm text-primary">data_usage</span>
+<h3 class="text-xs uppercase tracking-[0.2em] text-white/50">Tactical Analysis</h3>
+</div>
+<div class="space-y-2 pr-2">
+<!-- Stat Row -->
+<div class="flex justify-between items-center py-1 group hover:bg-primary/5 rounded px-1 transition-colors">
+<p class="text-[#8ecccc] text-sm">Enemies Neutralized</p>
+<div class="flex items-center gap-2">
+<div class="h-[1px] w-8 bg-primary/20 group-hover:bg-primary/50"></div>
+<p class="text-white text-sm font-mono">42</p>
+</div>
+</div>
+<!-- Stat Row -->
+<div class="flex justify-between items-center py-1 group hover:bg-primary/5 rounded px-1 transition-colors">
+<p class="text-[#8ecccc] text-sm">Accuracy Rating</p>
+<div class="flex items-center gap-2">
+<div class="h-[1px] w-8 bg-primary/20 group-hover:bg-primary/50"></div>
+<p class="text-white text-sm font-mono">87%</p>
+</div>
+</div>
+<!-- Stat Row -->
+<div class="flex justify-between items-center py-1 group hover:bg-primary/5 rounded px-1 transition-colors">
+<p class="text-[#8ecccc] text-sm">Sector Cleared</p>
+<div class="flex items-center gap-2">
+<div class="h-[1px] w-8 bg-primary/20 group-hover:bg-primary/50"></div>
+<p class="text-white text-sm font-mono">Sector 7-G</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<div class="mt-auto">
+<button class="relative w-full group overflow-hidden bg-primary hover:bg-[#befefe] transition-all duration-200 text-background-dark font-bold text-lg rounded py-4 px-6 flex items-center justify-between shadow-[0_0_20px_-5px_#06f9f9]">
+<!-- Button Content -->
+<span class="flex items-center gap-2 z-10">
+<span class="material-symbols-outlined">flight_land</span>
+<span class="tracking-wider">RETURN TO HANGAR</span>
+</span>
+<!-- Decorative Arrow/Icon -->
+<span class="material-symbols-outlined z-10 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+<!-- Button Tech Pattern Background -->
+<div class="absolute inset-0 w-full h-full bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%,100%_100%] opacity-0 group-hover:opacity-100 transition-opacity bg-no-repeat bg-[position:0%_0%] group-hover:bg-[position:100%_100%] duration-500"></div>
+<!-- Cut corner illusion -->
+<div class="absolute -top-2 -right-2 w-6 h-6 bg-[#0f2323] rotate-45 z-20"></div>
+</button>
+<div class="mt-2 text-center">
+<p class="text-[10px] text-white/30 uppercase tracking-widest">Polyverse Squadron // v.2.4.1</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

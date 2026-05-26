@@ -1,0 +1,31 @@
+{
+  "name": "Spaceforce Squadron",
+  "short_name": "Spaceforce",
+  "description": "High-octane orbital combat and starship management simulation.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "background_color": "#0f2323",
+  "theme_color": "#06f9f9",
+  "orientation": "landscape",
+  "id": "ai.websim.spaceforce.squadron",
+  "scope": "./",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "app_icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "action", "simulation"],
+  "shortcuts": [
+    {
+      "name": "Launch Sortie",
+      "short_name": "Launch",
+      "url": "./index.html?action=launch",
+      "icons": [{ "src": "app_icon.png", "sizes": "512x512" }]
+    }
+  ]
+}

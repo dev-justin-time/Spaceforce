@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>In-Game HUD - Spaceforce Squadron</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#06f9f9",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2323",
+                        "hud-bg": "rgba(15, 35, 35, 0.75)",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>.scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .neon-text {
+            text-shadow: 0 0 5px rgba(6, 249, 249, 0.5);
+        }
+        .neon-box {
+            box-shadow: 0 0 10px rgba(6, 249, 249, 0.2);
+        }
+        .glass-panel {
+            background: rgba(15, 35, 35, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark text-white font-display overflow-hidden w-screen h-screen select-none">
+<div class="absolute inset-0 z-0 bg-cover bg-center" data-alt="Futuristic neon city battlefield background" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAkoT_v2sx8sZaO9ViGEL_9uTCTlaMU1f7hEiddGmfS8DymCzNyTv_QNdF4SEO_gdGu0aESBz3jXZSK-IQ1YqvueJFwtHquQMUx1ner7LCSTLZvWA7mHR5mEXij1DGJv-iPYE8aPciO3LWEhC_3NXbXOJ8ec5e1wU-ZNCr0Yxvp6LfwvYeyuWWqtHM_2YHBj6euEn8c78NPoFDW6gmCDZIMAyoe1QFdgOEmSHDT4akumW-Oou1aW83wCSOEXpxPlCfKxQji_CJODvDR');">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-background-dark/60"></div>
+<div class="absolute inset-0 bg-black/40"></div>
+</div>
+<div class="relative z-10 flex flex-col justify-between w-full h-full p-4 md:p-6 lg:px-8 lg:py-6 safe-area-inset">
+<div class="flex items-start justify-between w-full">
+<div class="flex gap-3">
+<button class="group glass-panel rounded-lg p-2.5 transition-all hover:bg-primary/20 hover:border-primary/50 active:scale-95">
+<span class="material-symbols-outlined text-white group-hover:text-primary" style="font-size: 24px;">chat</span>
+</button>
+<button class="group glass-panel rounded-lg p-2.5 transition-all hover:bg-primary/20 hover:border-primary/50 active:scale-95 bg-primary/10 border-primary/40">
+<span class="material-symbols-outlined text-primary" style="font-size: 24px;">trophy</span>
+</button>
+</div>
+<div class="flex flex-col items-center glass-panel px-8 py-2 rounded-xl neon-box border-t border-t-primary/30">
+<span class="text-[10px] md:text-xs font-medium tracking-[0.2em] text-primary/80 uppercase mb-0.5">Current Score</span>
+<h2 class="text-2xl md:text-3xl font-bold leading-none tracking-widest text-white neon-text tabular-nums">1,450,200</h2>
+</div>
+<div class="flex items-center gap-2">
+<div class="hidden sm:flex items-center gap-1 glass-panel px-3 py-1.5 rounded-lg mr-2">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-xs text-gray-300">PING: 24ms</span>
+</div>
+<button class="group glass-panel rounded-lg p-2.5 transition-all hover:bg-white/10 active:scale-95">
+<span class="material-symbols-outlined text-white" style="font-size: 24px;">settings</span>
+</button>
+</div>
+</div>
+<div class="flex-1 flex justify-between items-center w-full py-4 overflow-hidden gap-8 pointer-events-none">
+<div class="pointer-events-auto flex flex-col justify-end w-72 h-48 sm:h-64 glass-panel rounded-xl overflow-hidden shadow-lg border-l-2 border-l-primary/30 transform transition-transform">
+<div class="p-2 border-b border-white/5 bg-black/20 backdrop-blur-sm flex justify-between items-center">
+<span class="text-xs font-bold text-primary tracking-wider">TEAM COMMS</span>
+<span class="material-symbols-outlined text-gray-400 text-[16px]">wifi</span>
+</div>
+<div class="flex-1 overflow-y-auto p-3 space-y-3 scrollbar-hide flex flex-col-reverse mask-image-b">
+<div class="flex gap-2 items-start">
+<div class="size-6 rounded-full bg-indigo-500/20 flex items-center justify-center shrink-0 border border-indigo-500/30">
+<span class="text-[10px] font-bold text-indigo-200">P2</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="text-xs font-bold text-indigo-300">Neon_Ghost</span>
+<span class="text-[10px] text-gray-500">10:04</span>
+</div>
+<p class="text-xs text-gray-200 leading-tight">On my way.</p>
+</div>
+</div>
+<div class="flex gap-2 items-start">
+<div class="size-6 rounded-full bg-cover bg-center shrink-0 border border-white/20" data-alt="Player avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDC0mjAU9Kn8-RgniqKek5-8yJY3UUkn6eHXSkWN7nUPNpHre3c5Ljc5a2rMUlrjQPxlbAtWy_niz5uLa_arBoX_rg4NeswsbzPc4aO3V6eriE6h63FQ28pBEogtcoj6Ulg0KChW0VCU3UOXytq1JciNwn5cyz8R170s-nmc20WmJEoOPhXB0UiBJxAb4FY7c9sTg3oQV4ptgwCgQ5wXYsaW7iV_ew_n0lQGdfxv_dLjZSCJsQIWZQESy8gTVdVhA_SKpLZPLdo7t4I');"></div>
+<div class="flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="text-xs font-bold text-white">Player1</span>
+<span class="text-[10px] text-gray-500">10:03</span>
+</div>
+<p class="text-xs text-gray-200 leading-tight">Need backup sector 7!</p>
+</div>
+</div>
+<div class="flex gap-2 items-start">
+<div class="size-6 rounded-full bg-red-500/20 flex items-center justify-center shrink-0 border border-red-500/30">
+<span class="material-symbols-outlined text-red-400 text-[14px]">warning</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-baseline gap-2">
+<span class="text-xs font-bold text-red-400">SYSTEM</span>
+<span class="text-[10px] text-gray-500">10:02</span>
+</div>
+<p class="text-xs text-red-100/90 leading-tight">Wave 4 Incoming...</p>
+</div>
+</div>
+</div>
+</div>
+<div class="pointer-events-auto w-64 glass-panel rounded-xl overflow-hidden shadow-lg border-r-2 border-r-primary/30 flex flex-col">
+<div class="p-3 bg-primary/10 border-b border-primary/20 flex justify-between items-center">
+<span class="text-xs font-bold text-primary tracking-wider">LEADERBOARD</span>
+<span class="text-[10px] text-primary/70">TOP 3</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center justify-between p-3 border-b border-white/5 bg-white/5">
+<div class="flex items-center gap-3">
+<span class="text-sm font-bold text-yellow-400 w-4">1</span>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-white">CYBER_WOLF</span>
+<span class="text-[10px] text-gray-400">Rank: Elite</span>
+</div>
+</div>
+<span class="text-xs font-medium text-primary">999k</span>
+</div>
+<div class="flex items-center justify-between p-3 border-b border-white/5">
+<div class="flex items-center gap-3">
+<span class="text-sm font-bold text-gray-300 w-4">2</span>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-white">NEON_GHOST</span>
+<span class="text-[10px] text-gray-400">Rank: Vet</span>
+</div>
+</div>
+<span class="text-xs font-medium text-white/80">850k</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-primary/5 border-l-2 border-l-primary">
+<div class="flex items-center gap-3">
+<span class="text-sm font-bold text-orange-400 w-4">3</span>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-white">[YOU]</span>
+<span class="text-[10px] text-gray-400">Rank: Rookie</span>
+</div>
+</div>
+<span class="text-xs font-medium text-white/80">720k</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-end justify-between w-full">
+<div class="flex flex-col gap-2 w-full max-w-xs md:max-w-md pointer-events-auto">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[18px]">token</span>
+<p class="text-primary text-sm font-medium uppercase tracking-wider neon-text">Ammo: Plasma Rifle</p>
+<span class="text-xs text-gray-400 ml-auto bg-black/50 px-2 py-0.5 rounded">AUTO</span>
+</div>
+<div class="glass-panel p-3 rounded-lg border-b-2 border-b-primary skew-x-[-10deg]">
+<div class="flex justify-between items-end mb-1.5 skew-x-[10deg]">
+<span class="text-white text-sm font-bold tracking-wider">SHIELD INTEGRITY</span>
+<span class="text-primary text-sm font-bold">100%</span>
+</div>
+<div class="flex gap-1 h-3 skew-x-[10deg]">
+<div class="h-full flex-1 bg-primary rounded-sm shadow-[0_0_8px_rgba(6,249,249,0.8)]"></div>
+<div class="h-full flex-1 bg-primary rounded-sm shadow-[0_0_8px_rgba(6,249,249,0.8)]"></div>
+<div class="h-full flex-1 bg-primary rounded-sm shadow-[0_0_8px_rgba(6,249,249,0.8)]"></div>
+<div class="h-full flex-1 bg-primary rounded-sm shadow-[0_0_8px_rgba(6,249,249,0.8)]"></div>
+<div class="h-full flex-1 bg-primary rounded-sm shadow-[0_0_8px_rgba(6,249,249,0.8)]"></div>
+<div class="h-full flex-1 bg-primary/80 rounded-sm"></div>
+<div class="h-full flex-1 bg-primary/60 rounded-sm"></div>
+<div class="h-full flex-1 bg-primary/40 rounded-sm"></div>
+<div class="h-full flex-1 bg-primary/20 rounded-sm"></div>
+<div class="h-full flex-1 bg-white/10 rounded-sm"></div>
+</div>
+</div>
+</div>
+<div class="flex items-end gap-3 pointer-events-auto">
+<div class="flex flex-col items-center justify-end mb-6 mr-1">
+<button class="relative group w-14 h-14 md:w-16 md:h-16 glass-panel rounded-xl border border-primary/30 border-b-4 border-b-primary flex items-center justify-center active:scale-95 transition-all shadow-[0_0_20px_rgba(6,249,249,0.2)] hover:shadow-[0_0_30px_rgba(6,249,249,0.5)] bg-black/40 overflow-hidden">
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<span class="material-symbols-outlined text-primary text-3xl md:text-4xl drop-shadow-[0_0_8px_rgba(6,249,249,1)] group-hover:text-white transition-colors animate-pulse">rocket_launch</span>
+</button>
+<span class="text-[9px] font-bold text-primary/80 tracking-widest bg-black/60 px-2 py-0.5 rounded-sm uppercase mt-1 border border-primary/10 backdrop-blur-sm">Tactical</span>
+</div>
+<div class="flex flex-col items-end gap-1 relative">
+<div class="flex justify-between w-full mb-0.5 px-0.5">
+<span class="text-[9px] font-bold text-primary/80 tracking-widest bg-black/40 px-1 rounded-sm">RADAR // ACTIVE</span>
+<span class="text-[9px] text-red-400 font-mono animate-pulse bg-black/40 px-1 rounded-sm border border-red-900/50">HOSTILES: 2</span>
+</div>
+<div class="w-32 h-32 md:w-40 md:h-40 glass-panel rounded-lg border border-primary/30 relative overflow-hidden shadow-[0_0_20px_rgba(6,249,249,0.15)] bg-black/50">
+<div class="absolute inset-0 z-0" style="background-image: radial-gradient(rgba(6, 249, 249, 0.15) 1px, transparent 1px); background-size: 16px 16px;"></div>
+<div class="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_0_300deg,rgba(6,249,249,0.15)_360deg)] animate-[spin_3s_linear_infinite] rounded-lg z-0"></div>
+<div class="absolute inset-0 m-auto w-[70%] h-[70%] border border-white/5 rounded-full z-0"></div>
+<div class="absolute inset-0 m-auto w-[35%] h-[35%] border border-white/5 rounded-full z-0"></div>
+<span class="absolute top-1 left-1/2 -translate-x-1/2 text-[8px] font-bold text-white/30">N</span>
+<span class="absolute bottom-1 left-1/2 -translate-x-1/2 text-[8px] font-bold text-white/30">S</span>
+<span class="absolute left-1 top-1/2 -translate-y-1/2 text-[8px] font-bold text-white/30">W</span>
+<span class="absolute right-1 top-1/2 -translate-y-1/2 text-[8px] font-bold text-white/30">E</span>
+<div class="absolute top-[20%] right-[30%] flex flex-col items-center z-10 transform translate-x-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-yellow-400 text-[14px] drop-shadow-[0_0_8px_rgba(250,204,21,0.8)] animate-bounce">flag</span>
+</div>
+<div class="absolute top-[35%] left-[20%] w-1.5 h-1.5 bg-red-500 rotate-45 border border-red-300 shadow-[0_0_6px_rgba(239,68,68,0.8)] z-10"></div>
+<div class="absolute bottom-[30%] right-[15%] w-1.5 h-1.5 bg-red-500 rotate-45 border border-red-300 shadow-[0_0_6px_rgba(239,68,68,0.8)] z-10"></div>
+<div class="absolute bottom-[40%] left-[30%] w-1 h-1 bg-blue-400 rounded-full shadow-[0_0_4px_blue] opacity-80 z-10"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+<div class="absolute bottom-0 w-24 h-24 bg-gradient-to-t from-primary/10 to-transparent -translate-y-2 pointer-events-none transform -rotate-45 origin-bottom" style="clip-path: polygon(50% 100%, 0% 0%, 100% 0%); opacity: 0.3;"></div>
+<div class="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-b-[8px] border-b-white drop-shadow-[0_0_4px_rgba(255,255,255,1)]"></div>
+</div>
+</div>
+<div class="flex items-center justify-between w-full mt-0.5 px-0.5">
+<div class="flex items-center gap-1 text-[8px] text-gray-300 font-mono bg-black/30 px-1 rounded">
+<span class="material-symbols-outlined text-[10px] text-primary">my_location</span>
+<span>POS: 42.0, -18.5</span>
+</div>
+<div class="text-[8px] text-gray-400 font-mono bg-black/30 px-1 rounded">ZOOM: 2x</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>

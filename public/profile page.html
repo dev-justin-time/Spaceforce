@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hangar Screen - Spaceforce Squadron</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#06f9f9",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#0f2323",
+                        "hud-bg": "rgba(15, 35, 35, 0.75)",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .neon-text {
+            text-shadow: 0 0 5px rgba(6, 249, 249, 0.5);
+        }
+        .neon-box {
+            box-shadow: 0 0 10px rgba(6, 249, 249, 0.2);
+        }
+        .glass-panel {
+            background: rgba(15, 35, 35, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .scan-line {
+            width: 100%;
+            height: 1px;
+            background: rgba(6, 249, 249, 0.3);
+            position: absolute;
+            z-index: 10;
+            animation: scan 3s linear infinite;
+            opacity: 0.5;
+        }
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .rank-icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark text-white font-display overflow-hidden w-screen h-screen select-none">
+<div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAkoT_v2sx8sZaO9ViGEL_9uTCTlaMU1f7hEiddGmfS8DymCzNyTv_QNdF4SEO_gdGu0aESBz3jXZSK-IQ1YqvueJFwtHquQMUx1ner7LCSTLZvWA7mHR5mEXij1DGJv-iPYE8aPciO3LWEhC_3NXbXOJ8ec5e1wU-ZNCr0Yxvp6LfwvYeyuWWqtHM_2YHBj6euEn8c78NPoFDW6gmCDZIMAyoe1QFdgOEmSHDT4akumW-Oou1aW83wCSOEXpxPlCfKxQji_CJODvDR');">
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark/95 via-background-dark/40 to-background-dark/80"></div>
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent to-black/60"></div>
+</div>
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-20">
+<div class="scan-line"></div>
+</div>
+<div class="relative z-10 flex flex-col justify-between w-full h-full p-4 md:p-6 lg:px-10 lg:py-8 safe-area-inset">
+<div class="flex items-start justify-between w-full">
+<div class="flex flex-col">
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest text-white neon-text uppercase italic transform -skew-x-6">
+                    Polyverse
+                </h1>
+<h2 class="text-2xl md:text-3xl font-light tracking-[0.5em] text-primary uppercase ml-1 transform -skew-x-6">
+                    Squadron
+                </h2>
+</div>
+<div class="flex items-center gap-3">
+<div class="hidden md:flex items-center gap-2 glass-panel px-4 py-2 rounded-full">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_#22c55e]"></span>
+<span class="text-xs text-primary font-medium tracking-wider">ONLINE</span>
+</div>
+<button class="glass-panel p-3 rounded-full hover:bg-white/10 transition-colors border-primary/30 hover:border-primary">
+<span class="material-symbols-outlined text-white">settings</span>
+</button>
+</div>
+</div>
+<div class="flex-1 flex items-center justify-between w-full gap-8 my-4">
+<div class="w-80 lg:w-96 glass-panel rounded-xl flex flex-col border-l-4 border-primary neon-box h-full max-h-[500px]">
+<div class="p-4 border-b border-white/10 bg-gradient-to-r from-primary/20 to-transparent flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">badge</span>
+<span class="font-bold tracking-[0.2em] text-sm text-white">AIRMAN DATA</span>
+</div>
+<div class="p-5 flex flex-col gap-6 flex-1 overflow-y-auto scrollbar-hide">
+<div class="flex items-center gap-4 pb-4 border-b border-white/5">
+<div class="size-24 rounded-lg bg-cover bg-center border-2 border-primary/50 shadow-[0_0_15px_rgba(6,249,249,0.3)] relative group" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDC0mjAU9Kn8-RgniqKek5-8yJY3UUkn6eHXSkWN7nUPNpHre3c5Ljc5a2rMUlrjQPxlbAtWy_niz5uLa_arBoX_rg4NeswsbzPc4aO3V6eriE6h63FQ28pBEogtcoj6Ulg0KChW0VCU3UOXytq1JciNwn5cyz8R170s-nmc20WmJEoOPhXB0UiBJxAb4FY7c9sTg3oQV4ptgwCgQ5wXYsaW7iV_ew_n0lQGdfxv_dLjZSCJsQIWZQESy8gTVdVhA_SKpLZPLdo7t4I');">
+<div class="absolute -bottom-2 -right-2 bg-background-dark border border-primary text-[10px] text-primary px-2 py-0.5 rounded font-bold shadow-lg flex items-center gap-1 z-10">
+<span class="material-symbols-outlined text-[10px] text-yellow-500 rank-icon-fill">stars</span>
+<span>LVL 55</span>
+</div>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<div class="flex flex-col mb-1.5">
+<span class="text-[9px] text-primary/80 uppercase tracking-[0.2em] font-bold mb-0.5">Current Rank</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-yellow-500 text-2xl drop-shadow-[0_0_8px_rgba(234,179,8,0.5)] rank-icon-fill">military_tech</span>
+<span class="text-2xl font-bold text-white tracking-wider neon-text">CAPTAIN</span>
+</div>
+</div>
+<div class="bg-white/5 px-2 py-1 rounded border border-white/5 flex items-center gap-2 w-fit">
+<span class="text-[9px] text-gray-400 uppercase tracking-wider">Callsign</span>
+<span class="text-xs font-bold text-white tracking-wide font-mono">STARBUCK</span>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="bg-black/40 p-3 rounded border border-white/5 flex justify-between items-center group hover:border-primary/30 transition-colors">
+<div class="flex flex-col">
+<span class="text-[10px] text-gray-400 uppercase tracking-wider">High Score</span>
+<span class="text-lg font-bold text-white tabular-nums neon-text">2,850,400</span>
+</div>
+<span class="material-symbols-outlined text-gray-600 group-hover:text-primary transition-colors">leaderboard</span>
+</div>
+<div class="bg-black/40 p-3 rounded border border-white/5 flex justify-between items-center group hover:border-primary/30 transition-colors">
+<div class="flex flex-col">
+<span class="text-[10px] text-gray-400 uppercase tracking-wider">Credits</span>
+<span class="text-lg font-bold text-primary tabular-nums">45,200 <span class="text-xs font-normal text-white/50">CR</span></span>
+</div>
+<span class="material-symbols-outlined text-gray-600 group-hover:text-primary transition-colors">payments</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-white/5 border-t border-white/10">
+<button class="w-full group relative overflow-hidden glass-panel border border-primary/50 hover:bg-primary/10 transition-all rounded py-3 px-4 flex items-center justify-center gap-2">
+<div class="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform relative z-10">shopping_cart</span>
+<span class="text-[10px] md:text-xs font-bold text-white tracking-widest uppercase relative z-10">Access Intergalactic Market</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col justify-end items-end h-full w-full max-w-lg">
+<div class="mb-auto hidden lg:flex flex-col items-end opacity-70">
+<div class="flex items-center gap-2 text-primary/60 text-xs mb-2">
+<span class="animate-pulse">●</span> HANGAR BAY 04: READY
+                    </div>
+<div class="w-32 h-1 bg-white/10 relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/50 w-2/3 animate-[scan_2s_ease-in-out_infinite]"></div>
+</div>
+</div>
+<div class="glass-panel w-full p-1 rounded-xl border-r-4 border-primary neon-box transform transition-transform hover:scale-[1.01] duration-300">
+<div class="bg-black/40 rounded-lg p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[120px] text-primary">rocket_launch</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-primary text-black text-[10px] font-bold px-2 py-0.5 rounded uppercase">Next Objective</span>
+<span class="text-xs text-gray-400 uppercase tracking-wider">Sector 7</span>
+</div>
+<h2 class="text-3xl font-bold text-white mb-2 italic">MISSION DEPLOYMENT</h2>
+<p class="text-sm text-gray-300 mb-6 max-w-xs leading-relaxed">
+                                Intelligence reports heavy resistance. Prepare for orbital drop. Weapon systems online.
+                            </p>
+<div class="flex gap-4 mb-6">
+<div class="flex flex-col">
+<span class="text-[10px] text-gray-500 uppercase">Difficulty</span>
+<span class="text-xs font-bold text-red-400">VETERAN</span>
+</div>
+<div class="w-px h-8 bg-white/10"></div>
+<div class="flex flex-col">
+<span class="text-[10px] text-gray-500 uppercase">Reward</span>
+<span class="text-xs font-bold text-primary">2500 CR</span>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-white text-black font-bold py-4 rounded text-lg tracking-[0.2em] uppercase transition-all shadow-[0_0_20px_rgba(6,249,249,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] flex items-center justify-center gap-3 group">
+<span class="material-symbols-outlined group-hover:rotate-45 transition-transform">flight_takeoff</span>
+                                LAUNCH SORTIE
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-end justify-between w-full opacity-60">
+<div class="flex gap-6 text-[10px] text-gray-400 font-mono">
+<span>SYS_ID: 884-XJ</span>
+<span>SYNC: 98%</span>
+</div>
+<div class="flex gap-1">
+<div class="w-8 h-1 bg-primary/30"></div>
+<div class="w-8 h-1 bg-primary/50"></div>
+<div class="w-8 h-1 bg-primary/80"></div>
+<div class="w-8 h-1 bg-primary"></div>
+</div>
+</div>
+</div>
+
+</body></html>

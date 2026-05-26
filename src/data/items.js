@@ -1,0 +1,455 @@
+export const TECH_CATEGORIES = [
+    { id: 'orbital', name: 'Orbital Warfare', code: 'DELTA-9', icon: '🎯', effect: 'Kinetic bombardment and heavy strike platforms.', imagePath: 'asset_category_orbital.png', classification: 'SECRET', category: 'TECH WING' },
+    { id: 'electronic', name: 'Electronic Warfare', code: 'DELTA-3', icon: '📡', effect: 'Signal denial, jamming, and EM pulse technology.', imagePath: 'asset_category_electronic.png', classification: 'SECRET', category: 'TECH WING' },
+    { id: 'navigation', name: 'Navigation Warfare', code: 'DELTA-8', icon: '🦈', effect: 'Advanced propulsion and GPS spoofing systems.', imagePath: 'asset_category_navigation.png', classification: 'CONFIDENTIAL', category: 'TECH WING' },
+    { id: 'cyber', name: 'Cyber Warfare', code: 'DELTA-6', icon: '💻', effect: 'Digital infiltration and virus injection protocols.', imagePath: 'asset_category_cyber.png', classification: 'TOP SECRET', category: 'TECH WING' },
+    { id: 'sda', name: 'Domain Awareness', code: 'DELTA-2', icon: '👁️', effect: 'Stealth detection and long-range orbital recon.', imagePath: 'asset_category_sda.png', classification: 'SECRET', category: 'TECH WING' },
+    { id: 'missile', name: 'Missile Warning', code: 'DELTA-4', icon: '🛡️', effect: 'Early warning systems and point-defense shields.', imagePath: 'asset_category_missile.png', classification: 'CONFIDENTIAL', category: 'TECH WING' },
+    { id: 'comms', name: 'Satellite Comms', code: 'DELTA-8', icon: '🛰️', effect: 'Secure constellation mesh-link and signal relay.', imagePath: 'asset_category_comms.png', classification: 'UNCLASSIFIED', category: 'TECH WING' }
+];
+
+export const militarySystems = [
+    // --- CORE SYSTEMS ---
+    {
+        id: "sys_omega_core",
+        name: "OMEGA Singularity Core",
+        designation: "AN/SLQ-99(V)1",
+        category: "Core Processing",
+        slot: "Core System",
+        classification: "TOP SECRET",
+        code: "999",
+        icon: "☄️",
+        effect: "+60% Fire Rate, +30% Damage",
+        imagePath: "/sys_omega_core.png",
+        specs: { manufacturer: "Void Dynamics", power: "12.0 MW", mass: "450 kg", reliability: "94.2% MTBF" },
+        gamification: { bountyMultiplier: 1.6, marketMultiplier: 1.2, spawnModifier: 0.15 }
+    },
+    {
+        id: "hull_vanguard_plus",
+        name: "VANGUARD-X Frame",
+        designation: "HULL-PRT-X",
+        category: "Ship Hull",
+        slot: "Hull",
+        classification: "SECRET",
+        code: "909",
+        icon: "🏗️",
+        effect: "Balanced +30% Hull Integrity, Sleek Profile",
+        imagePath: "/asset_alien_vanguard.png",
+        specs: { manufacturer: "SpaceForce R&D", power: "Passive", mass: "1,500 kg", reliability: "99.9% MTBF" },
+        shipConfig: { type: 'interceptor' },
+        gamification: { bountyMultiplier: 1.1, marketMultiplier: 1.0, spawnModifier: -0.02 }
+    },
+    {
+        id: "sys_aegis_7",
+        name: "AEGIS-7 Multi-Core",
+        designation: "AN/SLQ-7(V)3",
+        category: "Core Processing",
+        slot: "Core System",
+        classification: "SECRET",
+        code: "047",
+        icon: "🧠",
+        effect: "+40% Fire Rate, +15% Recharge Rate",
+        imagePath: "/sys_aegis_7.png",
+        specs: { manufacturer: "Lockheed Martin Space", power: "2.4 MW", mass: "850 kg", reliability: "99.7% MTBF" },
+        gamification: { bountyMultiplier: 1.15, marketMultiplier: 0.98, spawnModifier: 0.02 }
+    },
+    {
+        id: "sys_odin_kd",
+        name: "ODIN Kinetic Driver",
+        designation: "M-870 KEW System",
+        category: "Orbital Strike Weapon",
+        slot: "Core System",
+        classification: "TOP SECRET",
+        code: "112",
+        icon: "🎯",
+        effect: "Unlocks Orbital Strike Capability",
+        imagePath: "/orbital warfare.jpg",
+        specs: { manufacturer: "Raytheon Technologies", power: "8.5 MW Peak", mass: "1,200 kg", reliability: "98.2% MTBF" }
+    },
+    {
+        id: "sys_viper_ew",
+        name: "VIPER EW Suite",
+        designation: "AN/ALQ-249(V)1",
+        category: "Electronic Warfare",
+        slot: "Core System",
+        classification: "SECRET",
+        code: "089",
+        icon: "📡",
+        effect: "Jamming Radius +50%, Enemy Lock -30%",
+        imagePath: "/serpents.jpg",
+        specs: { manufacturer: "Northrop Grumman", power: "1.8 MW", mass: "420 kg", reliability: "99.1% MTBF" }
+    },
+
+    // --- AMMO CRATES ---
+    {
+        id: "ammo_plasma",
+        name: "Plasma Cell Crate",
+        designation: "AMC-PL-02",
+        category: "Ammunition",
+        slot: "Ammo Type",
+        classification: "CONFIDENTIAL",
+        code: "A02",
+        icon: "📦",
+        effect: "Primary Fire: +25% Damage, Green Tracers",
+        imagePath: "/7.jpg",
+        specs: { manufacturer: "Sol Munitions", count: "1,000 Units", mass: "120 kg", projectile: "High-Energy Plasma" }
+    },
+    {
+        id: "ammo_ion",
+        name: "Ion Core Crate",
+        designation: "AMC-ION-05",
+        category: "Ammunition",
+        slot: "Ammo Type",
+        classification: "SECRET",
+        code: "A05",
+        icon: "⚡",
+        effect: "Primary Fire: Lowers Enemy Speed, Blue Tracers",
+        imagePath: "/serpents.jpg",
+        specs: { manufacturer: "Tesla Orbital", count: "800 Units", mass: "150 kg", projectile: "Charged Ions" }
+    },
+    {
+        id: "ammo_vortex",
+        name: "Vortex Shredder Crate",
+        designation: "AMC-VX-09",
+        category: "Ammunition",
+        slot: "Ammo Type",
+        classification: "TOP SECRET",
+        code: "A09",
+        icon: "🌀",
+        effect: "Primary Fire: Small Area Damage, Blue Tracers",
+        imagePath: "/ammo_vortex.png",
+        specs: { manufacturer: "Void Dynamics", count: "500 Units", mass: "200 kg", projectile: "Miniature Singularity" }
+    },
+
+    // --- SUBSYSTEMS ---
+    {
+        id: "sub_iridium_plate",
+        name: "Iridium Hull Plating",
+        designation: "SUB-ARM-01",
+        category: "Subsystem Upgrade",
+        slot: "Subsystem",
+        classification: "CONFIDENTIAL",
+        code: "S01",
+        icon: "💎",
+        effect: "Armor Integrity +25%, Damage Mitigation +10%",
+        imagePath: "/sentile.jpg",
+        rarity: "Uncommon",
+        specs: { manufacturer: "Vulcan Foundries", power: "Passive", mass: "340 kg", reliability: "99.9% MTBF" }
+    },
+    {
+        id: "sub_flux_capacitor",
+        name: "Flux Energy Capacitor",
+        designation: "SUB-PWR-04",
+        category: "Subsystem Upgrade",
+        slot: "Subsystem",
+        classification: "SECRET",
+        code: "S04",
+        icon: "🔋",
+        effect: "Shield Recharge Rate +30%, Boost Cooldown -15%",
+        imagePath: "/space comms.jpg",
+        rarity: "Rare",
+        specs: { manufacturer: "Tesla Orbital", power: "0.8 MW Draw", mass: "120 kg", reliability: "98.5% MTBF" }
+    },
+    {
+        id: "sub_chrome_nozzle",
+        name: "Hyper-Flow Injectors",
+        designation: "SUB-PROP-09",
+        category: "Subsystem Upgrade",
+        slot: "Subsystem",
+        classification: "SECRET",
+        code: "S09",
+        icon: "🔥",
+        effect: "Max Speed +20%, Maneuverability +15%",
+        imagePath: "/spaceforce sharks.jpg",
+        rarity: "Rare",
+        specs: { manufacturer: "Cochrane Propulsion", power: "1.2 MW Draw", mass: "85 kg", reliability: "97.2% MTBF" }
+    },
+
+    // --- SHIELD GENERATORS ---
+    {
+        id: "gen_void_barrier",
+        name: "Void Barrier Gen",
+        designation: "SHD-V2",
+        category: "Defensive Systems",
+        slot: "Shield Generator",
+        classification: "SECRET",
+        code: "S2",
+        icon: "🛡️",
+        effect: "+60% Shield Capacity",
+        imagePath: "/orbital warfare.jpg",
+        specs: { manufacturer: "Aegis Dynamics", power: "4.5 MW", mass: "300 kg", reliability: "99.9% MTBF" }
+    },
+    {
+        id: "gen_pulsar",
+        name: "Pulsar Shield",
+        designation: "SHD-PUL-01",
+        category: "Defensive Systems",
+        slot: "Shield Generator",
+        classification: "CONFIDENTIAL",
+        code: "P01",
+        icon: "✨",
+        effect: "+30% Shield Capacity, Fast Recharge",
+        imagePath: "/space comms.jpg",
+        specs: { manufacturer: "Raytheon", power: "3.2 MW", mass: "200 kg", reliability: "98.5% MTBF" }
+    },
+
+    // --- ENGINE SYSTEMS ---
+    {
+        id: "eng_warp_drive",
+        name: "Warp-Pulse Drive",
+        designation: "ENG-WP-04",
+        category: "Propulsion",
+        slot: "Engine System",
+        classification: "SECRET",
+        code: "W04",
+        icon: "🚀",
+        effect: "+40% Speed, +20% Maneuverability",
+        imagePath: "/eng_warp_drive.png",
+        specs: { manufacturer: "Cochrane Propulsion", power: "10 MW", mass: "600 kg", reliability: "95% MTBF" }
+    },
+
+    // --- TACTICAL SUITES ---
+    {
+        id: "tac_oracle",
+        name: "Oracle Targeter",
+        designation: "TAC-ORC-9",
+        category: "Targeting",
+        slot: "Tactical Suite",
+        classification: "TOP SECRET",
+        code: "T99",
+        icon: "🎯",
+        effect: "+50% Critical Damage",
+        imagePath: "/ghosts.jpg",
+        specs: { manufacturer: "DSI Black Ops", power: "1.5 MW", mass: "50 kg", reliability: "100% MTBF" }
+    },
+
+    // --- AVIONICS ---
+    {
+        id: "avi_link",
+        name: "Neuro-Link Interface",
+        designation: "AVI-NX-1",
+        category: "Avionics",
+        slot: "Avionics",
+        classification: "SECRET",
+        code: "A01",
+        icon: "🧠",
+        effect: "+20% Fire Rate, Auto-Aim Assist",
+        imagePath: "/asset_alien_nordic.png",
+        specs: { manufacturer: "Helix Biotech", power: "0.5 MW", mass: "10 kg", reliability: "99.2% MTBF" }
+    },
+
+    // --- SHIP HULLS ---
+    {
+        id: "hull_titan",
+        name: "TITAN Heavy Hull",
+        designation: "HULL-HVY-9",
+        category: "Ship Hull",
+        slot: "Hull",
+        classification: "SECRET",
+        code: "901",
+        icon: "⛴️",
+        effect: "Unlocks Bomber Class (High Armor, Low Speed)",
+        imagePath: "/orbital warfare.jpg",
+        specs: { manufacturer: "Ironworks Inc", power: "Passive", mass: "4,500 kg", reliability: "99.9% MTBF" },
+        shipConfig: { type: 'bomber' }
+    },
+    {
+        id: "hull_spectre",
+        name: "SPECTRE Stealth Hull",
+        designation: "HULL-STL-X",
+        category: "Ship Hull",
+        slot: "Hull",
+        classification: "TOP SECRET",
+        code: "902",
+        icon: "✈️",
+        effect: "Unlocks Scout Class (High Speed, Low Armor)",
+        imagePath: "/ghosts.jpg",
+        specs: { manufacturer: "Void Works", power: "Passive", mass: "800 kg", reliability: "98.5% MTBF" },
+        shipConfig: { type: 'scout' }
+    },
+    {
+        id: "hull_vanguard",
+        name: "VANGUARD Prototype",
+        designation: "HULL-PRT-0",
+        category: "Ship Hull",
+        slot: "Hull",
+        classification: "SECRET",
+        code: "905",
+        icon: "🚀",
+        effect: "Unlocks Prototype Model (Balanced Stats)",
+        imagePath: "/spaceforce sharks.jpg",
+        specs: { manufacturer: "SpaceForce R&D", power: "Passive", mass: "1,200 kg", reliability: "99.0% MTBF" },
+        shipConfig: { type: 'interceptor' } 
+    },
+
+    // --- ADDITIONAL SYSTEMS ---
+    {
+        id: "sys_sentinel_array",
+        name: "SENTINEL Scan Array",
+        designation: "AN/APY-12(V)4",
+        category: "Intelligence Systems",
+        slot: "Core System",
+        classification: "SECRET",
+        code: "204",
+        icon: "👁️",
+        effect: "+20% Damage, +15% Score Multiplier",
+        imagePath: "/sys_sentinel_array.png",
+        specs: { manufacturer: "DSI Black Ops", power: "1.2 MW", mass: "320 kg", reliability: "99.9% MTBF" }
+    },
+    {
+        id: "sys_thor_strike",
+        name: "THOR Hammer Link",
+        designation: "M-990 KEW-II",
+        category: "Orbital Strike System",
+        slot: "Core System",
+        classification: "TOP SECRET",
+        code: "888",
+        icon: "🔨",
+        effect: "+50% Damage, Unlocks Thor's Hammer Protocol",
+        imagePath: "/orbital warfare.jpg",
+        specs: { manufacturer: "Asgardian Vanguard", power: "12 MW Peak", mass: "2,100 kg", reliability: "97.5% MTBF" }
+    },
+
+    // --- ADDITIONAL SUBSYSTEMS ---
+    {
+        id: "sub_quantum_buffer",
+        name: "Quantum Reality Anchor",
+        designation: "SUB-QNT-01",
+        category: "Subsystem Upgrade",
+        slot: "Subsystem",
+        classification: "TOP SECRET",
+        code: "S77",
+        icon: "⚛️",
+        rarity: "Epic",
+        effect: "Grants Auto-Evasion, +10% Shield Cap",
+        imagePath: "/sub_quantum_anchor.png",
+        specs: { manufacturer: "Builders Foundation", power: "Sub-Spatial", mass: "0.01 kg", reliability: "Unknown" }
+    },
+    {
+        id: "sub_cryo_core",
+        name: "Cryo-Liquid Cooler",
+        designation: "SUB-THRM-05",
+        category: "Subsystem Upgrade",
+        slot: "Subsystem",
+        classification: "SECRET",
+        code: "S22",
+        icon: "❄️",
+        rarity: "Rare",
+        effect: "+35% Fire Rate, Prevents Heat Decay",
+        imagePath: "/5.jpg",
+        specs: { manufacturer: "Helix Lab-6", power: "0.5 MW", mass: "180 kg", reliability: "98.8% MTBF" }
+    },
+    {
+        id: "sub_stellar_sail",
+        name: "Solar-Wind Injector",
+        designation: "SUB-PROP-X1",
+        category: "Subsystem Upgrade",
+        slot: "Subsystem",
+        classification: "CONFIDENTIAL",
+        code: "S99",
+        icon: "⛵",
+        rarity: "Uncommon",
+        effect: "+25% Speed, +20% Maneuverability",
+        imagePath: "/2.webp",
+        specs: { manufacturer: "Cochrane Propulsion", power: "Ambient", mass: "45 kg", reliability: "99.5% MTBF" }
+    },
+    {
+        id: "sub_plasma_collector",
+        name: "Plasma Fuel Funnel",
+        designation: "SUB-ECON-02",
+        category: "Subsystem Upgrade",
+        slot: "Subsystem",
+        classification: "SECRET",
+        code: "M01",
+        icon: "🔋",
+        rarity: "Rare",
+        effect: "+40% UNI Credit Multiplier, -5% Max Speed",
+        imagePath: "/sub_plasma_collector.png",
+        specs: { manufacturer: "Crimson Salvage Corp", power: "0.2 MW", mass: "90 kg", reliability: "94.0% MTBF" }
+    },
+    {
+        id: "sys_hyper_processor",
+        name: "Hyper-Tasking CPU",
+        designation: "AN/UYK-88",
+        category: "Core Processing",
+        slot: "Core System",
+        classification: "TOP SECRET",
+        code: "CPU-X",
+        icon: "🧠",
+        effect: "+25% Score Multiplier, +10% Fire Rate",
+        imagePath: "/sys_hyper_processor.png",
+        specs: { manufacturer: "Void Dynamics", power: "5.5 MW", mass: "12 kg", reliability: "99.99% MTBF" }
+    },
+    {
+        id: "sub_neutron_plating",
+        name: "Neutron Hull Plating",
+        designation: "SUB-HULL-12",
+        category: "Subsystem Upgrade",
+        slot: "Subsystem",
+        classification: "CONFIDENTIAL",
+        code: "S12",
+        icon: "🛡️",
+        rarity: "Common",
+        effect: "+30% Armor Integrity, +10% Score Multiplier",
+        imagePath: "/sub_neutron_plating.png",
+        specs: { manufacturer: "Vulcan Foundries", power: "Passive", mass: "400 kg", reliability: "100% MTBF" }
+    },
+    {
+        id: "sub_nebula_shield",
+        name: "Ionized Dust Shroud",
+        designation: "SUB-DEF-44",
+        category: "Subsystem Upgrade",
+        slot: "Subsystem",
+        classification: "SECRET",
+        code: "S44",
+        icon: "🌫️",
+        rarity: "Rare",
+        effect: "+25% Shield Capacity, -10% Speed",
+        imagePath: "/4.avif",
+        specs: { manufacturer: "Deep Space R&D", power: "2.1 MW", mass: "650 kg", reliability: "98.2% MTBF" }
+    },
+
+    // --- NEW MARKET EXCLUSIVES ---
+    {
+        id: "mkt_holo_trade_orb",
+        name: "Holo-Trade Orb",
+        designation: "MKT-HTO-01",
+        category: "Market Exclusive",
+        slot: "Subsystem",
+        classification: "CONFIDENTIAL",
+        code: "M01",
+        icon: "🟢",
+        rarity: "Epic",
+        effect: "Grants temporary market price visibility and +10% sell value for 3 sorties",
+        imagePath: "/market_holo_trade_orb.png",
+        specs: { manufacturer: "Mercury Exchange", power: "Passive", mass: "0.8 kg", reliability: "99.0% MTBF" }
+    },
+    {
+        id: "mkt_ancient_relic",
+        name: "Precursor Relic Shard",
+        designation: "MKT-PRS-07",
+        category: "Artifact",
+        slot: "Subsystem",
+        classification: "TOP SECRET",
+        code: "M07",
+        icon: "🔶",
+        rarity: "Legendary",
+        effect: "Unlocks a hidden Codex entry and grants +50% score for 60s once per mission",
+        imagePath: "/market_precursor_relic.png",
+        specs: { provenance: "Unknown", power: "Unknown", mass: "0.02 kg", condition: "Stable (Ancient tech)" }
+    },
+    {
+        id: "mkt_ai_core",
+        name: "Ledger AI Core (Limited)",
+        designation: "MKT-AIC-03",
+        category: "Utility",
+        slot: "Avionics",
+        classification: "SECRET",
+        code: "M03",
+        icon: "🤖",
+        rarity: "Rare",
+        effect: "Increases credits multiplier by +30% and provides brief AI hints in Hangar",
+        imagePath: "/market_ai_core.png",
+        specs: { manufacturer: "Helix Syndicate (Black Ops)", power: "0.4 MW", mass: "6 kg", reliability: "97.5% MTBF" }
+    }
+];
